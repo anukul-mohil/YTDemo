@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var videosArray: Array<Dictionary<NSObject, AnyObject>> = []
     
+    var selectedVideoIndex: Int!
+    
     //Later added variables
     var apiKey = "AIzaSyBkRcK1pZbBa53dQ2ZztKo38L2dj_USZas"
     
@@ -270,7 +272,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             getVideosForChannelAtIndex(indexPath.row)
         }
         else {
-            
+            selectedVideoIndex = indexPath.row
+            performSegueWithIdentifier("idSeguePlayer", sender: self)
         }
     }
     
@@ -320,6 +323,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // Hide the activity indicator.
             self.viewWait.hidden = true
         })
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "idSeguePlayer" {
+            let playerViewController = segue.destinationViewController as! PlayerViewController
+            playerViewController.videoID = videosArray[selectedVideoIndex]["videoID"] as! String
+        }
     }
 }
 

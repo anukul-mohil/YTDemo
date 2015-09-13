@@ -12,10 +12,13 @@ class PlayerViewController: UIViewController {
 
     @IBOutlet weak var playerView: YTPlayerView!
     
+    var videoID: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        playerView.loadWithVideoId(videoID)
     }
 
     override func didReceiveMemoryWarning() {
